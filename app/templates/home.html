@@ -1,0 +1,52 @@
+{% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}
+    Referral Management System
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Patient Referral Management System</h1>
+        <h3>Search by facility name, city, or diagnosis </h3>
+        <div class="row">
+            <div class="col-md-4">
+                {{ wtf.quick_form(form) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <hr/>
+                {% if search_results %}
+
+                <table class="table table-striped">
+                    <tr>
+                        <th>Hospital Facility name</th>
+                        <th>City</th>
+                        <th>Facility Address</th>
+                        <th>Diagnosis</th>
+                        <th>Severity</th>
+                        <th>Discharges</th> 
+                        <th>Year</th>
+                        <th>Mean Cost</th>
+                    </tr>   
+                    {% for hit in search_results %}     
+                    <tr>
+                        <td>{{ hit["Facility_Name_x"] }}</td>
+                        <td>{{ hit["Facility_City"] }}</td>
+                        <td>{{ hit["Facility_Address_1"] }}</td>
+                        <td>{{ hit["Diagnosis_Description"] }}</td>
+                        <td>{{ hit["Severity_Description"] }}</td>
+                        <td>{{ hit["Discharges"] }}</td>
+                        <td>{{ hit["year"] }}</td>
+                        <td>{{ hit["MeanCost"]}}</td> 
+                    </tr>    
+                    {% endfor %}
+                  </table>
+                {% else %}
+                    <p>No results found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
